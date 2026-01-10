@@ -26,8 +26,8 @@ guard-%:
 	@#$(or ${$*}, $(error $* is not set))
 
 ## Call entrypoint
-entrypoint: up
-	$(DOCKER_COMPOSE_EXEC) python ./cybulde/entrypoint.py
+version-data: up
+	$(DOCKER_COMPOSE_EXEC) python ./cybulde/version_data.py
 
 ## Starts jupyter lab
 notebook: up

@@ -16,7 +16,7 @@ services:
     volumes:
       - ./:/app/
       - ~/.config/gcloud/:/home/${USER_NAME:-kyuksel}/.config/gcloud
-      - ~/.ssh:${HOME}/.ssh
+      - ~/.ssh:/home/${USER_NAME}/.ssh
     ports:
       - 8888:8888
     ipc: host
