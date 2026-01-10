@@ -13,7 +13,7 @@ else
 endif
 
 SERVICE_NAME = app
-CONTAINER_NAME = cybulde-template-container
+CONTAINER_NAME = cyber_bullying_data-container
 
 DIRS_TO_VALIDATE = cybulde
 DOCKER_COMPOSE_RUN = $(DOCKER_COMPOSE_COMMAND) run --rm $(SERVICE_NAME)
