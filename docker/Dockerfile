@@ -48,3 +48,6 @@ USER ${USER_NAME}
 
 COPY . /app/
 CMD ["/startup-script.sh"]
+
+RUN git config --global user.email "abineshsiva1998@gmail.com" \
+    && git config --global user.name "Abinesh" 
