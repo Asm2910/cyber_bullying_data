@@ -32,7 +32,7 @@ def initialize_dvc_storage(dvc_remote_name: str, dvc_remote_url: str) -> None:
 
 
 def commit_to_dvc(dvc_raw_data_folder: str, dvc_remote_name: str) -> None:
-    current_version = ""
+    current_version = run_shell_command("git tag --list | sort -t v -k 2 -g | tail -1 | sed 's/v//'").strip()
     if not current_version:
         current_version = "0"
     next_version = f"v{int(current_version) + 1}"
@@ -47,7 +47,7 @@ def commit_to_dvc(dvc_raw_data_folder: str, dvc_remote_name: str) -> None:
 
 def make_new_data_version(dvc_raw_data_folder: str, dvc_remote_name: str) -> None:
     try:
-        status = run_shell_command("dvc status {dvc_raw_data_folder}.dvc")
+        status = run_shell_command(f"dvc status {dvc_raw_data_folder}.dvc")
         if status == "Data and ppipelines are up to date.\n":
             DATA_UTILS_LOGGER.info("Data and pipelines are upto date.")
             return 
