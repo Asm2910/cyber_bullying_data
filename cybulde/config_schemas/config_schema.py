@@ -4,7 +4,9 @@ from pydantic.dataclasses import dataclass
 
 @dataclass
 class Config:
-    helle: str = "world"
+    dvc_remote_name: str = "gcs-storage"
+    dvc_remote_url: str = "gs://cyberbull/data/raw"  
+    # create cybulde project in GCP
 
 
 def setup_config() -> None:
