@@ -1,14 +1,13 @@
 from pathlib import Path
-from cybulde.utils.utils import get_logger, run_shell_command
 from subprocess import CalledProcessError
 
-
+from cybulde.utils.utils import get_logger, run_shell_command
 
 DATA_UTILS_LOGGER = get_logger(Path(__file__).name)
 
 
 def is_dvc_initialized() -> bool:
-    return (Path().cwd()/ ".dvc").exists()
+    return (Path().cwd() / ".dvc").exists()
 
 
 def initialize_dvc() -> None:
@@ -22,7 +21,6 @@ def initialize_dvc() -> None:
     run_shell_command("git commit -nm 'Initialized DVC'")
 
 
-
 def initialize_dvc_storage(dvc_remote_name: str, dvc_remote_url: str) -> None:
     if not run_shell_command("dvc remote list"):
         DATA_UTILS_LOGGER.info("Initializing DVC storage...")
@@ -31,6 +29,7 @@ def initialize_dvc_storage(dvc_remote_name: str, dvc_remote_url: str) -> None:
         run_shell_command(f"git commit -nm 'Configured remote storage at: {dvc_remote_url}'")
     else:
         DATA_UTILS_LOGGER.info("DVC storage was already initialized...")
+
 
 # --------------
 
@@ -49,10 +48,9 @@ def initialize_dvc_storage(dvc_remote_name: str, dvc_remote_url: str) -> None:
 
 # -------------
 
+
 def commit_to_dvc(dvc_raw_data_folder: str, dvc_remote_name: str) -> None:
-    current_version = run_shell_command(
-        "git tag --list 'v*' | sort -t v -k 2 -g | tail -1 | sed 's/v//'"
-    ).strip()
+    current_version = run_shell_command("git tag --list 'v*' | sort -t v -k 2 -g | tail -1 | sed 's/v//'").strip()
     if not current_version:
         current_version = "0"
 
@@ -70,9 +68,7 @@ def commit_to_dvc(dvc_raw_data_folder: str, dvc_remote_name: str) -> None:
         return
 
     # Commit
-    run_shell_command(
-        f"git commit -m 'Updated version of data from v{current_version} to {next_version}'"
-    )
+    run_shell_command(f"git commit -m 'Updated version of data from v{current_version} to {next_version}'")
 
     # Tag only if tag doesn't already exist
     existing_tags = run_shell_command("git tag --list").split()
@@ -93,7 +89,7 @@ def commit_to_dvc(dvc_raw_data_folder: str, dvc_remote_name: str) -> None:
 #         status = run_shell_command(f"dvc status {dvc_raw_data_folder}.dvc")
 #         if status == "Data and ppipelines are up to date.\n":
 #             DATA_UTILS_LOGGER.info("Data and pipelines are upto date.")
-#             return 
+#             return
 #         commit_to_dvc(dvc_raw_data_folder, dvc_remote_name)
 #     except CalledProcessError:
 #         commit_to_dvc(dvc_raw_data_folder, dvc_remote_name)
