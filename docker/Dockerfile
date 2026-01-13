@@ -51,3 +51,5 @@ CMD ["/startup-script.sh"]
 
 RUN git config --global user.email "abineshsiva1998@gmail.com" \
     && git config --global user.name "Abinesh" 
+
+RUN python3.10 -m nltk.downloader stopwords && python3.10 -m nltk.downloader punkt
